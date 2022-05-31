@@ -27,16 +27,11 @@ public class MainActivity extends AppCompatActivity {
         ImageView img = (ImageView) view;
         int tappedImage = Integer.parseInt(img.getTag().toString());
 
-        // game reset function will be called
-        // if someone wins or the boxes are full
         if (!gameActive) {
             gameReset(view);
         }
-
-        // if the tapped image is empty
         if (gameState[tappedImage] == 2) {
-            // increase the counter
-            // after every tap
+
             counter++;
 
             // check if its the last box
@@ -45,15 +40,10 @@ public class MainActivity extends AppCompatActivity {
                 gameActive = false;
             }
 
-            // mark this position
             gameState[tappedImage] = activePlayer;
 
-            // this will give a motion
-            // effect to the image
             img.setTranslationY(-1000f);
 
-            // change the active player
-            // from 0 to 1 or 1 to 0
             if (activePlayer == 0) {
                 // set the image of x
                 img.setImageResource(R.drawable.x);
@@ -68,35 +58,28 @@ public class MainActivity extends AppCompatActivity {
                 activePlayer = 0;
                 TextView status = findViewById(R.id.status);
 
-                // change the status
                 status.setText("X's Turn - Tap to play");
             }
             img.animate().translationYBy(1000f).setDuration(300);
         }
         int flag = 0;
-        // Check if any player has won
         for (int[] winPosition : winPositions) {
             if (gameState[winPosition[0]] == gameState[winPosition[1]] &&
                     gameState[winPosition[1]] == gameState[winPosition[2]] &&
                     gameState[winPosition[0]] != 2) {
                 flag = 1;
 
-                // Somebody has won! - Find out who!
                 String winnerStr;
-
-                // game reset function be called
                 gameActive = false;
                 if (gameState[winPosition[0]] == 0) {
                     winnerStr = "X has won";
                 } else {
                     winnerStr = "O has won";
                 }
-                // Update the status bar for winner announcement
                 TextView status = findViewById(R.id.status);
                 status.setText(winnerStr);
             }
         }
-        // set the status if the match draw
         if (counter == 9 && flag == 0) {
             TextView status = findViewById(R.id.status);
             status.setText("Match Draw");
@@ -119,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
         ((ImageView) findViewById(R.id.imageView6)).setImageResource(0);
         ((ImageView) findViewById(R.id.imageView7)).setImageResource(0);
         ((ImageView) findViewById(R.id.imageView8)).setImageResource(0);
-
         TextView status = findViewById(R.id.status);
         status.setText("X's Turn - Tap to play");
     }
