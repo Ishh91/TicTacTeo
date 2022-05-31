@@ -80,13 +80,14 @@ public class MainActivity extends AppCompatActivity {
                 status.setText(winnerStr);
             }
         }
+        // MAtch Draw condition
         if (counter == 9 && flag == 0) {
             TextView status = findViewById(R.id.status);
             status.setText("Match Draw");
         }
     }
 
-    // reset the game
+    // game Reset Function Call
     @SuppressLint("SetTextI18n")
     public void gameReset(View view) {
         gameActive = true;
